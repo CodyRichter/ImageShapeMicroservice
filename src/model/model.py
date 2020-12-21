@@ -25,6 +25,8 @@ def predict(image_file):
 
     width, height = image.size
 
+    image.close()
+
     return {
         'classes': ['width', 'height'],  # List every class in the classifier
         'result': {  # For results, use the class names above with the result value
