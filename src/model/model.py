@@ -1,6 +1,8 @@
 from PIL import Image
 import time
 
+from fastapi.logger import logger
+
 
 def init():
     """
@@ -9,7 +11,7 @@ def init():
     """
 
     # Placeholder init code. Replace the sleep with check for model files required etc...
-    time.sleep(1)
+    logger.debug('Successful init of ImageShapeMicroservice')
 
 
 def predict(image_file):
@@ -19,12 +21,14 @@ def predict(image_file):
     with the image as an input.
     """
 
-    image = Image.open(image_file.name, mode='r')
+    image: Image = Image.open(image_file.name, mode='r')
+
+    width, height = image.size
 
     return {
-        'classes': ['isGreen', 'isRed'],  # List every class in the classifier
+        'classes': ['width', 'height'],  # List every class in the classifier
         'result': {  # For results, use the class names above with the result value
-            'isGreen': 0,
-            'isRed': 1
+            'height': height,
+            'width': width,
         }
     }
